@@ -32,17 +32,28 @@ for key, value in votes.items():
     most_candidate_name = key
     most_votes_count = value
     
-  vote_percentage = round((value/total_votes) * 100,2)
+  vote_percentage = (value/total_votes)
     
   
-  print(key + ":" + str(vote_percentage) + "," + str(value))
+  print(key + ":" + "{:.2%}".format(vote_percentage) + ";" + "{:,}".format(value))
   
 
-print("Total Votes:" + str(total_votes))
+print("Total Votes:" + "{:,}".format(total_votes))
   
   
 
-print('\nMost Votes:')
+print('Winner:')
 
-print(most_candidate_name + ": " + str(most_votes_count))
+print(most_candidate_name + ": " + "{:,}".format(most_votes_count))
 
+file_name = "PyPoll.txt"
+
+with open(file_name,'w') as txt_file:
+    txt_file.write("Voting Results\n")
+    txt_file.write("--------------------\n")
+    txt_file.write("Total Votes:" + "{:,}".format(total_votes) + "\n")
+    txt_file.write("--------------------\n")
+    txt_file.write(key + ":" + "{:.2%}".format(vote_percentage) + ";" + "{:,}".format(value) + "\n")
+    txt_file.write("--------------------\n")
+    txt_file.write('Winner:\n')
+    txt_file.write(most_candidate_name + ": " + "{:,}".format(most_votes_count))
